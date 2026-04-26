@@ -18,9 +18,18 @@
 
     <main class="glass-container">
         <header>
-            <h1>📚 讀書會文章製造機</h1>
-            <p>輸入主題，自動生成完美的 AI 指令</p>
+            <h1 id="mainTitle">📚 讀書會文章製造機</h1>
+            <p id="mainDesc">Step 1：輸入主題，自動生成尋找文章的 AI 指令</p>
         </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-target="tab-generator">1. 製造機</button>
+            <button class="tab-btn" data-target="tab-decoder">2. 解讀機</button>
+            <button class="tab-btn" data-target="tab-podcast">3. 廣播稿</button>
+            <button class="tab-btn" data-target="tab-audio">4. 語音化</button>
+        </div>
+
+        <div id="tab-generator" class="tab-content active">
 
         <section class="input-section">
             <div class="event-type-toggle">
@@ -55,6 +64,53 @@
                 <span>✨ 產生指令</span>
             </button>
         </section>
+        </div>
+
+        <div id="tab-decoder" class="tab-content">
+            <section class="input-section">
+                <div class="input-group">
+                    <label for="aiAgendaInput">請貼上 AI 產出的完整議程</label>
+                    <textarea id="aiAgendaInput" placeholder="請直接將 ChatGPT / Gemini 產出的完整讀書會議程（包含 Session 1 & 2 的文章網址與所有問題）全部貼到這裡..." class="custom-textarea"></textarea>
+                </div>
+                <button id="generateDecoderBtn" class="primary-btn">
+                    <span>✨ 產生解讀指令</span>
+                </button>
+            </section>
+        </div>
+
+        <div id="tab-podcast" class="tab-content">
+            <section class="input-section">
+                <div class="instruction-box">
+                    <p>💡 <strong>雙人廣播稿轉換：</strong></p>
+                    <p>此功能將接續 Step 2 的結果。請確保您已經在 AI 聊天室中執行完 Step 2 的解讀指令。</p>
+                    <p>按下按鈕後，這段指令會要求 AI 把剛才的「文章、單字、問題解析」轉換為一篇由「知性男」與「活潑女」共同主持的生動英文廣播稿 (Podcast Script)。</p>
+                </div>
+                <button id="generatePodcastBtn" class="primary-btn">
+                    <span>✨ 產生廣播稿指令</span>
+                </button>
+            </section>
+        </div>
+
+        <div id="tab-audio" class="tab-content">
+            <section class="input-section">
+                <div class="instruction-box">
+                    <p>💡 <strong>如何獲得「流利、生動且一字不漏」的廣播語音：</strong></p>
+                    <p>如果您希望聽起來要是**流利自然的真人語調 (不是死板的機器人)**，並且能直接下載音檔，強烈推薦使用以下免費方案：</p>
+                    <ol>
+                        <li><strong>Google AI Studio (✨最強烈推薦，操作最簡單且可下載音檔✨)：</strong> 
+                            您的直覺非常準確！Google AI Studio 內建的 Gemini 模型支援非常強大的「語音輸出(Audio Output)」，不但雙語極度流利，還能直接生成音檔。
+                            <br>👉 <strong>做法：</strong>登入 AI Studio，在右側設定將「Output modality (輸出格式)」改為「Audio (語音)」。把廣播稿貼上並附註：「請扮演男女雙人廣播主持人，用非常生動、流利的中英雙語，一字不漏唸出這份廣播稿，括號內的情緒要演出來。」跑完後直接點擊下載即可！
+                        </li>
+                        <li><strong>ElevenLabs (電影級 AI 語音，有免費額度)：</strong> 
+                            目前全球最厲害的語音 AI。只要把廣播稿貼進去，它能完美讀懂 (Laughs)、(Sighs) 等情緒提示詞，用語調無比流暢的聲音把廣播稿演出來。
+                        </li>
+                        <li><strong>ChatGPT 手機版「語音模式」 (免費、極度生動)：</strong> 
+                            打開手機版 ChatGPT 開啟語音，對它說：「請你扮演男女配音員，用非常流暢、生動的廣播腔調，**一字不漏**地照著這份劇本演一次。」它的語調表現非常驚艷，缺點是較難直接匯出音檔。
+                        </li>
+                    </ol>
+                </div>
+            </section>
+        </div>
 
         <section class="output-section">
             <div class="output-header">

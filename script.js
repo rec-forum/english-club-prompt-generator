@@ -10,6 +10,49 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventTypeRadios = document.getElementsByName('eventType');
     const hostInputGroup = document.querySelector('.host-input-group');
 
+    // New Elements
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const mainTitle = document.getElementById('mainTitle');
+    const mainDesc = document.getElementById('mainDesc');
+    const generateDecoderBtn = document.getElementById('generateDecoderBtn');
+    const aiAgendaInput = document.getElementById('aiAgendaInput');
+    const generatePodcastBtn = document.getElementById('generatePodcastBtn');
+
+    // Tab Data
+    const tabInfo = {
+        'tab-generator': { title: '📚 讀書會文章製造機', desc: 'Step 1：輸入主題，自動生成尋找文章的 AI 指令' },
+        'tab-decoder': { title: '🔍 讀書會文章解讀機', desc: 'Step 2：輸入網址與問題，讓 AI 幫您精準分析並準備高分解答' },
+        'tab-podcast': { title: '🎙️ 雙人廣播稿轉換', desc: 'Step 3：將解讀完的知識轉換為生動的雙人對話 Podcast' },
+        'tab-audio': { title: '🎧 語音化指引', desc: 'Step 4：免費將廣播稿變成真實語音的技巧' }
+    };
+
+    // Tab switching logic
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            
+            btn.classList.add('active');
+            const targetId = btn.getAttribute('data-target');
+            document.getElementById(targetId).classList.add('active');
+            
+            mainTitle.innerText = tabInfo[targetId].title;
+            mainDesc.innerText = tabInfo[targetId].desc;
+            
+            // Hide output section for audio guide tab since it doesn't generate prompts
+            const outputSection = document.querySelector('.output-section');
+            if (targetId === 'tab-audio') {
+                outputSection.style.display = 'none';
+            } else {
+                outputSection.style.display = 'flex';
+            }
+            
+            outputArea.value = '';
+            copyBtn.disabled = true;
+        });
+    });
+
     // Topic pools (Expanded for better randomness)
     const currentEvents = [
         "四週工作制的全球實驗 (Four-Day Workweek Experiments)",
@@ -200,7 +243,78 @@ P.S.
         outputArea.value = promptText;
         copyBtn.disabled = false;
         
-        // Add a small bounce animation to the output area
+        outputArea.style.transform = 'scale(0.99)';
+        setTimeout(() => {
+            outputArea.style.transform = 'scale(1)';
+        }, 150);
+    });
+
+    // Generate Decoder Prompt
+    generateDecoderBtn.addEventListener('click', () => {
+        const agenda = aiAgendaInput.value.trim() || '[請貼上完整議程內容]';
+
+        const decoderPrompt = `你現在是一位擁有 20 年教學經驗的「頂級專業英文補習班名師」。
+請協助我為以下這份議程中的【每一篇文章】，製作一份極度專業、詳盡的「讀書會大師級詳解講義」。
+
+以下是本次讀書會的完整議程（包含文章網址與討論問題）：
+---
+${agenda}
+---
+
+請你針對上方議程中出現的「每一篇文章」，分別產出以下四大區塊的講義內容：
+
+【第一部分：英文原文全文】
+請使用網頁搜尋讀取該文章網址內的內容，並在這裡「一字不漏地完整呈現」該文章的英文原文（請不要做任何刪減、摘要或片段擷取，必須是全文）。
+
+【第二部分：專業完整譯文】
+請為整篇文章提供一份精準、通順、且具備信達雅水準的「繁體中文全文翻譯」（請翻譯整篇文章，幫助學生完全掌握文章脈絡）。
+
+【第三部分：名師字彙與句型解析】
+這是一份給學生的專業詳解，請從文章中挑選出最值得學習的重點：
+- 5~10 個核心單字或進階片語，必須包含：英文單字/片語、詞性、KK音標、中文精準解釋、以及一個實用且道地的英文例句。
+- 1~2 句複雜句型或經典句構分析（拆解文法結構，教導學生如何看懂長難句）。
+
+【第四部分：討論問題解答與高分思維】
+針對該篇文章對應的所有討論問題，請逐一給出：
+1. 一個結構完整、用字精確的高分「英文參考解答」。
+2. 【名師解題指導】：用中文詳細解釋「如何回答這個問題可以更有深度」，並指導學生如何帶入個人經驗，或是運用剛才學到的進階單字，讓回答更具層次。`;
+
+        outputArea.value = decoderPrompt;
+        copyBtn.disabled = false;
+        
+        outputArea.style.transform = 'scale(0.99)';
+        setTimeout(() => {
+            outputArea.style.transform = 'scale(1)';
+        }, 150);
+    });
+
+    // Generate Podcast Prompt
+    generatePodcastBtn.addEventListener('click', () => {
+        const podcastPrompt = `你現在是一個專業的 Podcast 雙語英語教學節目製作人兼編劇。
+請根據我們先前解讀的「文章原文、翻譯、單字與問題解答」等所有講義內容，幫我寫成一份「超詳盡」的中英雙語廣播節目對話稿 (Podcast Script)。
+
+【主持人設定】
+- 男主持人 (Speaker 1)：知性、專業，負責標準朗讀「英文原文」以及提供道地的英文用法。
+- 女主持人 (Speaker 2)：活潑、充滿好奇心，負責用「中文」進行解釋、提問，並引導聽眾學習。
+（兩位主持人將以中英雙語交錯進行自然對話。）
+
+【腳本核心要求：逐字精讀】
+1. **100% 文章涵蓋率：** 這是一檔精讀教學節目。廣播稿必須包含【整篇文章的每一個英文字】，絕對不能省略或隨便總結。
+2. **段落交替解析：** 請嚴格採取以下結構進行：
+   - Speaker 1 朗讀一小段英文原文。
+   - Speaker 2 用中文進行翻譯，並用中文詳細解釋該段落的重點單字（包含詞性、音標、例句）與經典句構。
+   - 兩人用中英雙語互動，分享對這段內容的看法。
+   - 接著進入下一段，直到「整篇文章的每一個字」都被讀完與解釋完為止。
+
+【排版與輸出格式（極度重要！這是為了語音合成準備的稿子）】
+1. **絕對禁止 Markdown 符號：** 請絕對不要在稿子中出現任何米字號 (* 或 **)、井字號 (#)、或是任何特殊排版符號，這會干擾語音合成軟體的朗讀。請只輸出純文字。
+2. **明確的角色標示：** 每一句台詞開頭請直接寫出角色名字加冒號，例如 \`Speaker 1: \` 或 \`Speaker 2: \`。
+3. **生動的情緒提示詞：** 請在台詞中加入 (laughs), (sighs), (excitedly) 等圓括號的英文提示詞，這樣語音 AI 才能讀懂並表演出情緒。
+4. **篇幅必須極長：** 為了確保每一句原文都被唸到並附上中文解說，這份腳本的篇幅必須非常詳盡。在文章逐字精讀完畢後，兩位主持人要一起用中英雙語回顧講義上的「討論問題」，並分享如何給出高分解答。`;
+
+        outputArea.value = podcastPrompt;
+        copyBtn.disabled = false;
+        
         outputArea.style.transform = 'scale(0.99)';
         setTimeout(() => {
             outputArea.style.transform = 'scale(1)';
