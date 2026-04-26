@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal English Club - Prompt Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <main class="glass-container">
+        <header>
+            <h1>📚 讀書會文章製造機</h1>
+            <p>輸入主題，自動生成完美的 AI 指令</p>
+        </header>
+
+        <section class="input-section">
+            <div class="event-type-toggle">
+                <input type="radio" id="typeSaturday" name="eventType" value="saturday" checked>
+                <label for="typeSaturday">💻 週六 (線上)</label>
+                
+                <input type="radio" id="typeThursday" name="eventType" value="thursday">
+                <label for="typeThursday">🤝 週四 (實體)</label>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group host-input-group">
+                    <label for="hostInput">主持人 (Host)</label>
+                    <input type="text" id="hostInput" placeholder="例如：Michelle" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <label for="topicInput">本次討論主題 / 關鍵字</label>
+                    <input type="text" id="topicInput" placeholder="例如：Health, Travel, Lifestyle..." autocomplete="off">
+                    <div class="topic-suggestions">
+                        <button type="button" id="btnCurrentEvents" class="suggestion-btn">
+                            <span class="icon">📰</span>
+                            <span>隨機時事題</span>
+                        </button>
+                        <button type="button" id="btnFunTopics" class="suggestion-btn">
+                            <span class="icon">🎲</span>
+                            <span>隨機有趣題</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button id="generateBtn" class="primary-btn">
+                <span>✨ 產生指令</span>
+            </button>
+        </section>
+
+        <section class="output-section">
+            <div class="output-header">
+                <h2>產出的 Prompt 指令</h2>
+                <button id="copyBtn" class="secondary-btn" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span id="copyText">一鍵複製</span>
+                </button>
+            </div>
+            <textarea id="outputArea" readonly placeholder="產生的指令會顯示在這裡，複製後請貼到 ChatGPT 或 Gemini 中。"></textarea>
+            
+            <div class="instruction-box">
+                <p>💡 <strong>使用方式：</strong></p>
+                <ol>
+                    <li>輸入主題後點擊「產生指令」。</li>
+                    <li>點擊右上角的「一鍵複製」。</li>
+                    <li>貼到 <a href="https://chatgpt.com/" target="_blank">ChatGPT</a> 或 <a href="https://gemini.google.com/" target="_blank">Gemini</a> 的對話框中送出，AI 就會自動幫您上網搜尋並產出最終議程！</li>
+                </ol>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
