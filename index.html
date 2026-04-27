@@ -46,18 +46,36 @@
                     <input type="text" id="hostInput" placeholder="例如：Michelle" autocomplete="off">
                 </div>
                 <div class="input-group">
-                    <label for="topicInput">本次討論主題 / 關鍵字</label>
-                    <input type="text" id="topicInput" placeholder="例如：Health, Travel, Lifestyle..." autocomplete="off">
-                    <div class="topic-suggestions">
-                        <button type="button" id="btnCurrentEvents" class="suggestion-btn">
-                            <span class="icon">📰</span>
-                            <span>隨機時事題</span>
-                        </button>
-                        <button type="button" id="btnFunTopics" class="suggestion-btn">
-                            <span class="icon">🎲</span>
-                            <span>隨機有趣題</span>
-                        </button>
-                    </div>
+                    <label for="topicInput1">第一篇主題</label>
+                    <input type="text" id="topicInput1" placeholder="例如：Health, Travel..." autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <label for="topicInput2">第二篇主題</label>
+                    <input type="text" id="topicInput2" placeholder="例如：Technology..." autocomplete="off">
+                </div>
+            </div>
+
+            <div class="random-topic-section">
+                <div class="category-selector">
+                    <label for="topicCategory">🎲 隨機題庫：</label>
+                    <select id="topicCategory">
+                        <option value="all">🌟 綜合全庫</option>
+                        <option value="currentEvents">📰 國際時事</option>
+                        <option value="fun">🤡 奇聞趣事</option>
+                        <option value="tech">🚀 科技未來</option>
+                        <option value="life">🌱 生活哲學</option>
+                        <option value="business">💼 職場商業</option>
+                    </select>
+                </div>
+                <div class="topic-actions">
+                    <button type="button" id="btnSlotMachine" class="suggestion-btn slot-btn">
+                        <span class="icon">🎰</span>
+                        <span>拉霸抽題</span>
+                    </button>
+                    <button type="button" id="btnUndo" class="suggestion-btn undo-btn" disabled>
+                        <span class="icon">↩️</span>
+                        <span>復原上次</span>
+                    </button>
                 </div>
             </div>
             <button id="generateBtn" class="primary-btn">

@@ -264,36 +264,105 @@ header p {
     box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
 
-.topic-suggestions {
+.random-topic-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    flex-wrap: wrap;
+}
+
+.category-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.category-selector label {
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.category-selector select {
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8);
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.category-selector select:focus {
+    border-color: var(--primary-color);
+    background: white;
+}
+
+.topic-actions {
     display: flex;
     gap: 0.75rem;
-    margin-top: 0.5rem;
 }
 
 .suggestion-btn {
-    background: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    padding: 0.6rem 1.2rem;
     border-radius: 20px;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-main);
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.5rem;
     transition: all 0.2s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
-.suggestion-btn:hover {
-    background: rgba(255, 255, 255, 0.9);
+.suggestion-btn:hover:not(:disabled) {
+    background: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     border-color: var(--primary-color);
     color: var(--primary-hover);
 }
 
-.suggestion-btn:active {
+.suggestion-btn:active:not(:disabled) {
     transform: translateY(0);
+}
+
+.suggestion-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.slot-btn {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-color: #fcd34d;
+    font-weight: 600;
+}
+.slot-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #fde68a, #fcd34d);
+}
+
+/* Add a visual effect for slot machine */
+@keyframes slotSpin {
+    0% { transform: translateY(-3px); opacity: 0.7; }
+    50% { transform: translateY(3px); opacity: 1; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+.slot-spinning {
+    animation: slotSpin 0.15s infinite;
+    color: var(--primary-color) !important;
 }
 
 button {

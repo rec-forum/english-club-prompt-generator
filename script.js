@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const topicInput = document.getElementById('topicInput');
+    const topicInput1 = document.getElementById('topicInput1');
+    const topicInput2 = document.getElementById('topicInput2');
     const hostInput = document.getElementById('hostInput');
     const generateBtn = document.getElementById('generateBtn');
     const outputArea = document.getElementById('outputArea');
     const copyBtn = document.getElementById('copyBtn');
     const copyText = document.getElementById('copyText');
-    const btnCurrentEvents = document.getElementById('btnCurrentEvents');
-    const btnFunTopics = document.getElementById('btnFunTopics');
+    const btnSlotMachine = document.getElementById('btnSlotMachine');
+    const btnUndo = document.getElementById('btnUndo');
+    const topicCategory = document.getElementById('topicCategory');
     const eventTypeRadios = document.getElementsByName('eventType');
     const hostInputGroup = document.querySelector('.host-input-group');
 
@@ -54,66 +56,181 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Topic pools (Expanded for better randomness)
-    const currentEvents = [
-        "四週工作制的全球實驗 (Four-Day Workweek Experiments)",
-        "無現金社會帶來的影響 (Impact of a Cashless Society)",
-        "遠距工作對人際關係的改變 (Remote Work and Relationships)",
-        "微型住宅與極簡生活趨勢 (Tiny Homes and Minimalism)",
-        "AI 時代下的隱私挑戰 (Privacy in the AI Era)",
-        "太空旅遊的商業化 (Commercial Space Tourism)",
-        "現代人的睡眠科學與危機 (The Science of Sleep)",
-        "全球暖化對日常餐桌的影響 (Climate Change and Our Diet)",
-        "社群媒體與容貌焦慮 (Social Media and Body Image)",
-        "數位遊牧民族的崛起 (The Rise of Digital Nomads)",
-        "快時尚的退潮與二手經濟 (Decline of Fast Fashion)",
-        "高齡化社會的新型態養老 (New Concepts of Aging)",
-        "無人車與未來交通 (Self-Driving Cars and Future Transport)",
-        "現代人的孤獨感與心理健康 (Modern Loneliness and Mental Health)",
-        "人造肉與未來食物 (Fake Meat and Future Food)",
-        "串流平台的訂閱疲勞 (Subscription Fatigue in Streaming)",
-        "元宇宙在教育上的應用 (Metaverse in Education)",
-        "城市農業與垂直農場 (Urban and Vertical Farming)",
-        "基因編輯技術的倫理爭議 (Ethics of Gene Editing)",
-        "遠距醫療的普及與挑戰 (Telemedicine Trends)"
-    ];
+    const topicPools = {
+        currentEvents: [
+            "四週工作制的全球實驗 (Four-Day Workweek Experiments)",
+            "無現金社會帶來的影響 (Impact of a Cashless Society)",
+            "遠距工作對人際關係的改變 (Remote Work and Relationships)",
+            "微型住宅與極簡生活趨勢 (Tiny Homes and Minimalism)",
+            "AI 時代下的隱私挑戰 (Privacy in the AI Era)",
+            "太空旅遊的商業化 (Commercial Space Tourism)",
+            "現代人的睡眠科學與危機 (The Science of Sleep)",
+            "全球暖化對日常餐桌的影響 (Climate Change and Our Diet)",
+            "社群媒體與容貌焦慮 (Social Media and Body Image)",
+            "數位遊牧民族的崛起 (The Rise of Digital Nomads)",
+            "快時尚的退潮與二手經濟 (Decline of Fast Fashion)",
+            "高齡化社會的新型態養老 (New Concepts of Aging)",
+            "無人車與未來交通 (Self-Driving Cars and Future Transport)",
+            "現代人的孤獨感與心理健康 (Modern Loneliness and Mental Health)",
+            "人造肉與未來食物 (Fake Meat and Future Food)",
+            "串流平台的訂閱疲勞 (Subscription Fatigue in Streaming)",
+            "元宇宙在教育上的應用 (Metaverse in Education)",
+            "城市農業與垂直農場 (Urban and Vertical Farming)",
+            "基因編輯技術的倫理爭議 (Ethics of Gene Editing)",
+            "遠距醫療的普及與挑戰 (Telemedicine Trends)"
+        ],
+        fun: [
+            "世界各地的奇特節慶 (Bizarre Festivals Around the World)",
+            "動物界的驚人智慧 (Amazing Animal Intelligence)",
+            "咖啡文化的歷史與發展 (History of Coffee Culture)",
+            "未解的歷史謎團 (Unsolved Historical Mysteries)",
+            "各國有趣的迷信與禁忌 (Interesting Superstitions)",
+            "那些改變世界的偶然發明 (Accidental Inventions that Changed the World)",
+            "深海探索的奇妙生物 (Weird Creatures of the Deep Sea)",
+            "金氏世界紀錄的荒謬挑戰 (Absurd Guinness World Records)",
+            "顏色的心理學與行銷 (Psychology of Colors)",
+            "史上最著名的藝術品失竊案 (Famous Art Heists)",
+            "各地奇葩的法律與規定 (Weird Laws Around the World)",
+            "笑的科學：我們為什麼會笑？ (The Science of Laughter)",
+            "人類收集物品的奇妙心理 (The Psychology of Collecting)",
+            "世界上最偏遠的有人居住地 (Most Isolated Places on Earth)",
+            "巧克力的黑歷史與進化 (The History of Chocolate)",
+            "錯覺藝術與大腦的欺騙 (Optical Illusions)",
+            "植物會溝通嗎？ (Do Plants Communicate?)",
+            "外星人接觸的各種陰謀論 (Alien Contact Conspiracy Theories)",
+            "世界上最昂貴的奇葩食物 (World's Most Expensive Bizarre Foods)",
+            "古代人的超前科技發明 (Ancient High-Tech Inventions)"
+        ],
+        tech: [
+            "人工智慧的道德界線 (AI Ethics)",
+            "量子電腦的革命 (Quantum Computing)",
+            "腦機介面技術 (Brain-Computer Interfaces)",
+            "深偽技術與假新聞 (Deepfakes and Fake News)",
+            "太空垃圾清理計畫 (Space Debris Cleanup)",
+            "擴增實境在日常的應用 (AR in Daily Life)",
+            "生物辨識技術的隱私 (Biometrics Privacy)",
+            "自駕車的道德困境 (Self-Driving Car Dilemmas)",
+            "3D列印器官的未來 (3D Printed Organs)",
+            "無人機的商業應用 (Drone Commercialization)",
+            "虛擬實境與心理治療 (VR in Therapy)",
+            "區塊鏈與去中心化未來 (Blockchain Future)",
+            "智慧城市的發展 (Smart City Development)",
+            "新能源電池技術 (New Battery Tech)",
+            "機器人伴侶的社會影響 (Robot Companions)"
+        ],
+        life: [
+            "極簡主義的生活哲學 (Minimalism Philosophy)",
+            "正念冥想的科學實證 (Mindfulness Science)",
+            "延遲享樂的心理學 (Delayed Gratification)",
+            "慢活運動的興起 (Slow Living Movement)",
+            "大自然對心理健康的療癒 (Nature Therapy)",
+            "數位排毒的挑戰 (Digital Detox Challenge)",
+            "情緒智商的重要性 (Importance of EQ)",
+            "習慣養成的科學 (Science of Habit Formation)",
+            "完美主義的陷阱 (Trap of Perfectionism)",
+            "跨世代的溝通代溝 (Generation Gap)",
+            "中年危機與轉機 (Midlife Crisis and Opportunity)",
+            "培養感恩習慣的力量 (Power of Gratitude)",
+            "適應力與心理韌性 (Resilience and Adaptability)",
+            "發展個人興趣的價值 (Value of Hobbies)",
+            "如何在混亂中保持平靜 (Finding Peace in Chaos)"
+        ],
+        business: [
+            "零工經濟的利與弊 (Gig Economy Pros & Cons)",
+            "安靜離職的職場現象 (Quiet Quitting)",
+            "遠距工作的溝通挑戰 (Remote Work Communication)",
+            "ESG 企業永續發展 (ESG Sustainability)",
+            "個人品牌的建立 (Personal Branding)",
+            "影響力行銷的轉變 (Influencer Marketing)",
+            "跨文化管理的挑戰 (Cross-Cultural Management)",
+            "情緒勞動的隱形成本 (Hidden Cost of Emotional Labor)",
+            "AI 時代的職場技能 (Workplace Skills in AI Era)",
+            "綠色清洗與企業公關 (Greenwashing)",
+            "平權與多元包容職場 (DEI in Workplace)",
+            "微型創業的興起 (Rise of Micro-Entrepreneurship)",
+            "知識付費時代的商業模式 (Knowledge Economy Business Models)",
+            "職場上的冒名頂替症候群 (Imposter Syndrome)",
+            "無國界企業的崛起 (Rise of Borderless Companies)"
+        ]
+    };
 
-    const funTopics = [
-        "世界各地的奇特節慶 (Bizarre Festivals Around the World)",
-        "動物界的驚人智慧 (Amazing Animal Intelligence)",
-        "咖啡文化的歷史與發展 (History of Coffee Culture)",
-        "未解的歷史謎團 (Unsolved Historical Mysteries)",
-        "各國有趣的迷信與禁忌 (Interesting Superstitions)",
-        "那些改變世界的偶然發明 (Accidental Inventions that Changed the World)",
-        "深海探索的奇妙生物 (Weird Creatures of the Deep Sea)",
-        "金氏世界紀錄的荒謬挑戰 (Absurd Guinness World Records)",
-        "顏色的心理學與行銷 (Psychology of Colors)",
-        "史上最著名的藝術品失竊案 (Famous Art Heists)",
-        "各地奇葩的法律與規定 (Weird Laws Around the World)",
-        "笑的科學：我們為什麼會笑？ (The Science of Laughter)",
-        "人類收集物品的奇妙心理 (The Psychology of Collecting)",
-        "世界上最偏遠的有人居住地 (Most Isolated Places on Earth)",
-        "巧克力的黑歷史與進化 (The History of Chocolate)",
-        "錯覺藝術與大腦的欺騙 (Optical Illusions)",
-        "植物會溝通嗎？ (Do Plants Communicate?)",
-        "外星人接觸的各種陰謀論 (Alien Contact Conspiracy Theories)",
-        "世界上最昂貴的奇葩食物 (World's Most Expensive Bizarre Foods)",
-        "古代人的超前科技發明 (Ancient High-Tech Inventions)"
-    ];
+    let topicHistory = [];
 
     // Helper to get random item
     function getRandomTopic(array) {
         return array[Math.floor(Math.random() * array.length)];
     }
 
-    // Event listeners for suggestion buttons
-    btnCurrentEvents.addEventListener('click', () => {
-        topicInput.value = getRandomTopic(currentEvents);
-        generateBtn.click(); // Auto-generate
+    function getRandomTopicExclude(array, excludeTopic) {
+        let available = array.filter(t => t !== excludeTopic);
+        if (available.length === 0) available = array;
+        return getRandomTopic(available);
+    }
+
+    async function slotMachineEffect(inputEl, category) {
+        const pool = category === 'all' 
+            ? Object.values(topicPools).flat() 
+            : topicPools[category];
+        
+        let iterations = 20;
+        let speed = 40;
+        
+        inputEl.classList.add('slot-spinning');
+
+        return new Promise(resolve => {
+            function tick() {
+                inputEl.value = getRandomTopic(pool);
+                iterations--;
+                if (iterations > 0) {
+                    speed *= 1.1; // gradually slow down
+                    setTimeout(tick, speed);
+                } else {
+                    inputEl.classList.remove('slot-spinning');
+                    resolve(inputEl.value);
+                }
+            }
+            tick();
+        });
+    }
+
+    btnSlotMachine.addEventListener('click', async () => {
+        // Save history
+        if (topicInput1.value || topicInput2.value) {
+            topicHistory.push({ t1: topicInput1.value, t2: topicInput2.value });
+            btnUndo.disabled = false;
+        }
+
+        const category = topicCategory.value;
+        
+        btnSlotMachine.disabled = true;
+        btnSlotMachine.innerHTML = `<span class="icon">🎰</span><span>抽題中...</span>`;
+        
+        // Ensure both slots spin, but at the end, ensure they don't pick the exact same topic if possible
+        await Promise.all([
+            slotMachineEffect(topicInput1, category),
+            slotMachineEffect(topicInput2, category)
+        ]);
+
+        // Fix duplicate topics
+        if (topicInput1.value === topicInput2.value) {
+            const pool = category === 'all' ? Object.values(topicPools).flat() : topicPools[category];
+            topicInput2.value = getRandomTopicExclude(pool, topicInput1.value);
+        }
+
+        btnSlotMachine.disabled = false;
+        btnSlotMachine.innerHTML = `<span class="icon">🎰</span><span>拉霸抽題</span>`;
     });
 
-    btnFunTopics.addEventListener('click', () => {
-        topicInput.value = getRandomTopic(funTopics);
-        generateBtn.click(); // Auto-generate
+    btnUndo.addEventListener('click', () => {
+        if (topicHistory.length > 0) {
+            const lastState = topicHistory.pop();
+            topicInput1.value = lastState.t1;
+            topicInput2.value = lastState.t2;
+            
+            if (topicHistory.length === 0) {
+                btnUndo.disabled = true;
+            }
+        }
     });
 
     eventTypeRadios.forEach(radio => {
@@ -148,9 +265,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Generate the prompt template
-    function generatePrompt(topic, eventType, hostName) {
+    function generatePrompt(topic1, topic2, eventType, hostName) {
         const dates = getNextDate(eventType === 'saturday' ? 6 : 4);
-        const topicString = topic ? `本次的指定關鍵字是：「${topic}」。請確保至少有一篇文章與此關鍵字相關。\n\n` : '';
+        
+        let topicString = '';
+        if (topic1 || topic2) {
+            topicString = `本次讀書會的指定主題如下，請嚴格遵守：\n`;
+            if (topic1) topicString += `- 第一篇文章請務必尋找與「${topic1}」相關的主題。\n`;
+            if (topic2) topicString += `- 第二篇文章請務必尋找與「${topic2}」相關的主題。\n`;
+            topicString += `\n`;
+        }
+
         const displayHost = hostName ? hostName : '[請填入主持人姓名]';
         
         let headerString = '';
@@ -234,11 +359,12 @@ P.S.
     }
 
     generateBtn.addEventListener('click', () => {
-        const topic = topicInput.value.trim();
+        const t1 = topicInput1.value.trim();
+        const t2 = topicInput2.value.trim();
         const eventType = document.querySelector('input[name="eventType"]:checked').value;
         const hostName = hostInput.value.trim();
         
-        const promptText = generatePrompt(topic, eventType, hostName);
+        const promptText = generatePrompt(t1, t2, eventType, hostName);
         
         outputArea.value = promptText;
         copyBtn.disabled = false;
@@ -322,11 +448,13 @@ ${agenda}
     });
 
     // Enter key support
-    topicInput.addEventListener('keypress', (e) => {
+    const handleEnter = (e) => {
         if (e.key === 'Enter') {
             generateBtn.click();
         }
-    });
+    };
+    topicInput1.addEventListener('keypress', handleEnter);
+    topicInput2.addEventListener('keypress', handleEnter);
 
     copyBtn.addEventListener('click', async () => {
         try {
