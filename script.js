@@ -517,7 +517,7 @@ ${agenda}
             // Generate python code
             const safeText = text.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/'/g, "\\'");
             
-            const pyCode = `import os
+const pyCode = `import os
 import re
 import asyncio
 import tempfile
@@ -527,18 +527,18 @@ print("初始化 TTS 環境中...")
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ---------------------------------------------------------------------------
-# 方案 A：使用免費的 Edge TTS
+# 方案 A：使用免費的 Edge TTS (支援多語者辨識)
 # ---------------------------------------------------------------------------
 import edge_tts
 
-async def generate_edge_tts(text_chunks, output_filename="podcast_full_edge.mp3", voice="zh-TW-HsiaoChenNeural"):
+async def generate_edge_tts(segments, output_filename="podcast_full_edge.mp3"):
     temp_files = []
-    print(f"總共分為 {len(text_chunks)} 個段落，開始生成 Edge TTS...")
-    for i, chunk in enumerate(text_chunks):
+    print(f"總共分為 {len(segments)} 個對話段落，開始生成 Edge TTS...")
+    for i, (voice, chunk) in enumerate(segments):
         if not chunk.strip(): continue
         temp_filename = os.path.join(tempfile.gettempdir(), f"tts_chunk_{i}.mp3")
         temp_files.append(temp_filename)
-        print(f"正在生成第 {i+1}/{len(text_chunks)} 段...")
+        print(f"正在生成第 {i+1}/{len(segments)} 段 (語音: {voice})...")
         communicate = edge_tts.Communicate(chunk, voice)
         await communicate.save(temp_filename)
         
@@ -557,27 +557,78 @@ async def generate_edge_tts(text_chunks, output_filename="podcast_full_edge.mp3"
     print(f"✅ 拼接完成！檔案已儲存為：{output_path}")
 
 # ---------------------------------------------------------------------------
+# 文字切割與語者辨識邏輯
+# ---------------------------------------------------------------------------
+def parse_text_by_speaker(text):
+    # 設定雙主特人聲音 (Speaker 1 男聲, Speaker 2 女聲)
+    voice_spk1 = "zh-TW-YunJheNeural"
+    voice_spk2 = "zh-TW-HsiaoChenNeural"
+    
+    lines = text.split('\\n')
+    segments = []
+    current_voice = voice_spk1
+    current_text = ""
+    
+    for line in lines:
+        line_stripped = line.strip()
+        if line_stripped.startswith("Speaker 1:"):
+            if current_text.strip():
+                segments.append((current_voice, current_text.strip()))
+            current_voice = voice_spk1
+            current_text = line_stripped.replace("Speaker 1:", "").strip() + " "
+        elif line_stripped.startswith("Speaker 2:"):
+            if current_text.strip():
+                segments.append((current_voice, current_text.strip()))
+            current_voice = voice_spk2
+            current_text = line_stripped.replace("Speaker 2:", "").strip() + " "
+        else:
+            current_text += line_stripped + " "
+            
+    if current_text.strip():
+        segments.append((current_voice, current_text.strip()))
+        
+    # 如果單一句對話太長(>800字)，還是需要切片以避開限制
+    final_segments = []
+    for voice, text_chunk in segments:
+        if len(text_chunk) > 800:
+            sentences = re.split(r'(?<=[.!?。！？])\\s+', text_chunk)
+            sub_chunk = ""
+            for sentence in sentences:
+                if len(sub_chunk) + len(sentence) <= 800:
+                    sub_chunk += sentence + " "
+                else:
+                    if sub_chunk: final_segments.append((voice, sub_chunk.strip()))
+                    sub_chunk = sentence + " "
+            if sub_chunk: final_segments.append((voice, sub_chunk.strip()))
+        else:
+            final_segments.append((voice, text_chunk))
+            
+    return final_segments
+# ---------------------------------------------------------------------------
 # 方案 B：使用 Gemini API
 # ---------------------------------------------------------------------------
-def generate_gemini_tts(text_chunks, output_filename="podcast_full_gemini.wav", api_key="YOUR_API_KEY"):
+def generate_gemini_tts(segments, output_filename="podcast_full_gemini.wav", api_key="YOUR_API_KEY"):
     from google import genai
     from google.genai import types
     import wave
     client = genai.Client(api_key=api_key)
     temp_files = []
-    print(f"總共分為 {len(text_chunks)} 個段落，開始生成 Gemini TTS...")
-    for i, chunk in enumerate(text_chunks):
+    print(f"總共分為 {len(segments)} 個對話段落，開始生成 Gemini TTS...")
+    for i, (voice, chunk) in enumerate(segments):
         if not chunk.strip(): continue
         temp_filename = os.path.join(tempfile.gettempdir(), f"tts_chunk_{i}.wav")
         temp_files.append(temp_filename)
-        print(f"正在生成第 {i+1}/{len(text_chunks)} 段...")
+        # Gemini does not support selecting voice per chunk easily without changing the model config, but we can try
+        # Map edge voice names to Gemini voice names
+        gemini_voice = "Aoede" if voice == "zh-TW-HsiaoChenNeural" else "Puck"
+        print(f"正在生成第 {i+1}/{len(segments)} 段 (Gemini 語音: {gemini_voice})...")
         try:
             response = client.models.generate_content(
                 model="gemini-2.5-flash", 
                 contents=chunk,
                 config=types.GenerateContentConfig(
                     response_modalities=["AUDIO"],
-                    speech_config=types.SpeechConfig(voice_config=types.VoiceConfig(prebuilt_voice_config=types.PrebuiltVoiceConfig(voice_name="Aoede")))
+                    speech_config=types.SpeechConfig(voice_config=types.VoiceConfig(prebuilt_voice_config=types.PrebuiltVoiceConfig(voice_name=gemini_voice)))
                 )
             )
             audio_data = response.candidates[0].content.parts[0].inline_data.data
@@ -604,19 +655,6 @@ def generate_gemini_tts(text_chunks, output_filename="podcast_full_gemini.wav", 
     combined.export(output_path, format="wav")
     print(f"✅ 拼接完成！檔案已儲存為：{output_path}")
 
-def split_text_into_chunks(text, max_chars=800):
-    sentences = re.split(r'(?<=[.!?。！？])\\s+', text)
-    chunks = []
-    current_chunk = ""
-    for sentence in sentences:
-        if len(current_chunk) + len(sentence) <= max_chars:
-            current_chunk += sentence + " "
-        else:
-            if current_chunk: chunks.append(current_chunk.strip())
-            current_chunk = sentence + " "
-    if current_chunk: chunks.append(current_chunk.strip())
-    return chunks
-
 if __name__ == "__main__":
     try:
         sample_text = """${safeText}"""
@@ -624,11 +662,11 @@ if __name__ == "__main__":
         if not sample_text.strip():
             print("❌ 錯誤：廣播稿內容為空，請確認您有貼上文字！")
         else:
-            chunks = split_text_into_chunks(sample_text, max_chars=800)
+            segments = parse_text_by_speaker(sample_text)
             
             ${method === 'edge' 
-                ? `asyncio.run(generate_edge_tts(chunks, output_filename="podcast_full.mp3"))`
-                : `generate_gemini_tts(chunks, output_filename="podcast_full.wav", api_key="${apiKey}")`}
+                ? `asyncio.run(generate_edge_tts(segments, output_filename="podcast_full.mp3"))`
+                : `generate_gemini_tts(segments, output_filename="podcast_full.wav", api_key="${apiKey}")`}
     except Exception as e:
         import traceback
         print("\\n❌ 發生錯誤：")
