@@ -520,9 +520,11 @@ ${agenda}
             const pyCode = `import os
 import re
 import asyncio
+import tempfile
 from pydub import AudioSegment
 
 print("初始化 TTS 環境中...")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ---------------------------------------------------------------------------
 # 方案 A：使用免費的 Edge TTS
@@ -534,7 +536,7 @@ async def generate_edge_tts(text_chunks, output_filename="podcast_full_edge.mp3"
     print(f"總共分為 {len(text_chunks)} 個段落，開始生成 Edge TTS...")
     for i, chunk in enumerate(text_chunks):
         if not chunk.strip(): continue
-        temp_filename = f"temp_chunk_{i}.mp3"
+        temp_filename = os.path.join(tempfile.gettempdir(), f"tts_chunk_{i}.mp3")
         temp_files.append(temp_filename)
         print(f"正在生成第 {i+1}/{len(text_chunks)} 段...")
         communicate = edge_tts.Communicate(chunk, voice)
@@ -545,9 +547,14 @@ async def generate_edge_tts(text_chunks, output_filename="podcast_full_edge.mp3"
     for temp_file in temp_files:
         audio = AudioSegment.from_mp3(temp_file)
         combined += audio
-        os.remove(temp_file)
-    combined.export(output_filename, format="mp3")
-    print(f"✅ 拼接完成！檔案已儲存為：{output_filename}")
+        try:
+            os.remove(temp_file)
+        except:
+            pass
+    
+    output_path = os.path.join(BASE_DIR, output_filename)
+    combined.export(output_path, format="mp3")
+    print(f"✅ 拼接完成！檔案已儲存為：{output_path}")
 
 # ---------------------------------------------------------------------------
 # 方案 B：使用 Gemini API
@@ -561,7 +568,7 @@ def generate_gemini_tts(text_chunks, output_filename="podcast_full_gemini.wav", 
     print(f"總共分為 {len(text_chunks)} 個段落，開始生成 Gemini TTS...")
     for i, chunk in enumerate(text_chunks):
         if not chunk.strip(): continue
-        temp_filename = f"temp_chunk_{i}.wav"
+        temp_filename = os.path.join(tempfile.gettempdir(), f"tts_chunk_{i}.wav")
         temp_files.append(temp_filename)
         print(f"正在生成第 {i+1}/{len(text_chunks)} 段...")
         try:
@@ -588,9 +595,14 @@ def generate_gemini_tts(text_chunks, output_filename="podcast_full_gemini.wav", 
         if os.path.exists(temp_file):
             audio = AudioSegment.from_wav(temp_file)
             combined += audio
-            os.remove(temp_file)
-    combined.export(output_filename, format="wav")
-    print(f"✅ 拼接完成！檔案已儲存為：{output_filename}")
+            try:
+                os.remove(temp_file)
+            except:
+                pass
+                
+    output_path = os.path.join(BASE_DIR, output_filename)
+    combined.export(output_path, format="wav")
+    print(f"✅ 拼接完成！檔案已儲存為：{output_path}")
 
 def split_text_into_chunks(text, max_chars=800):
     sentences = re.split(r'(?<=[.!?。！？])\\s+', text)
