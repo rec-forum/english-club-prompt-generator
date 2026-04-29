@@ -492,7 +492,7 @@ ${agenda}
     const charCount = document.getElementById('charCount');
     const twdCost = document.getElementById('twdCost');
     const geminiCostInfo = document.getElementById('geminiCostInfo');
-    const COST_PER_CHAR_TWD = 0.002; // 每字約 0.002 元台幣
+    const COST_PER_CHAR_TWD = 0.0004; // 每字約 0.0004 元台幣 (SiliconFlow 費率)
 
     if (audioTextInput && charCount && twdCost) {
         const updateCostEstimator = () => {
@@ -510,7 +510,7 @@ ${agenda}
 
     if (ttsMethod) {
         ttsMethod.addEventListener('change', (e) => {
-            if (e.target.value === 'gemini') {
+            if (e.target.value === 'siliconflow') {
                 geminiKeyGroup.style.display = 'block';
                 if (geminiCostInfo) geminiCostInfo.style.display = 'inline';
             } else {
@@ -531,9 +531,9 @@ ${agenda}
             const method = ttsMethod.value;
             const apiKey = geminiApiKey ? geminiApiKey.value.trim() : '';
 
-            if (method === 'gemini') {
+            if (method === 'siliconflow') {
                 if (!apiKey) {
-                    alert('請輸入您的 Gemini API Key！');
+                    alert('請輸入您的 SiliconFlow API Key！');
                     return;
                 }
                 // 檢查 API Key 是否包含非 ASCII 字元 (例如中文或全形字元)
@@ -651,38 +651,42 @@ def parse_text_by_speaker(text):
             
     return final_segments
 # ---------------------------------------------------------------------------
-# 方案 B：使用 Gemini API
+# 方案 B：使用 SiliconFlow API (CosyVoice2 雙語模型)
 # ---------------------------------------------------------------------------
-def generate_gemini_tts(segments, output_filename="podcast_full_gemini.wav", api_key="YOUR_API_KEY"):
-    from google import genai
-    from google.genai import types
-    import wave
-    client = genai.Client(api_key=api_key)
+def generate_siliconflow_tts(segments, output_filename="podcast_full_siliconflow.mp3", api_key="YOUR_API_KEY"):
+    import requests
     temp_files = []
-    print(f"總共分為 {len(segments)} 個對話段落，開始生成 Gemini TTS...")
+    print(f"總共分為 {len(segments)} 個對話段落，開始生成 SiliconFlow TTS...")
+    
+    url = "https://api.siliconflow.com/v1/audio/speech"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+
     for i, (voice, chunk) in enumerate(segments):
         if not chunk.strip(): continue
-        temp_filename = os.path.join(tempfile.gettempdir(), f"tts_chunk_{i}.wav")
+        temp_filename = os.path.join(tempfile.gettempdir(), f"tts_chunk_{i}.mp3")
         temp_files.append(temp_filename)
-        # Gemini does not support selecting voice per chunk easily without changing the model config, but we can try
-        # Map edge voice names to Gemini voice names
-        gemini_voice = "Aoede" if voice == "zh-TW-HsiaoChenNeural" else "Puck"
-        print(f"正在生成第 {i+1}/{len(segments)} 段 (Gemini 語音: {gemini_voice})...")
+        
+        # Map edge voice names to SiliconFlow CosyVoice2 voice names
+        sf_voice = "FunAudioLLM/CosyVoice2-0.5B:anna" if voice == "zh-CN-XiaoxiaoNeural" else "FunAudioLLM/CosyVoice2-0.5B:alex"
+        print(f"正在生成第 {i+1}/{len(segments)} 段 (語音: {sf_voice.split(':')[-1]})...")
+        
+        payload = {
+            "model": "FunAudioLLM/CosyVoice2-0.5B",
+            "input": chunk,
+            "voice": sf_voice,
+            "response_format": "mp3"
+        }
+
         try:
-            response = client.models.generate_content(
-                model="gemini-2.0-flash-exp", 
-                contents=chunk,
-                config=types.GenerateContentConfig(
-                    response_modalities=["AUDIO"],
-                    speech_config=types.SpeechConfig(voice_config=types.VoiceConfig(prebuilt_voice_config=types.PrebuiltVoiceConfig(voice_name=gemini_voice)))
-                )
-            )
-            audio_data = response.candidates[0].content.parts[0].inline_data.data
-            with wave.open(temp_filename, "wb") as wav_file:
-                wav_file.setnchannels(1)
-                wav_file.setsampwidth(2)
-                wav_file.setframerate(24000)
-                wav_file.writeframes(audio_data)
+            response = requests.post(url, json=payload, headers=headers)
+            if response.status_code == 200:
+                with open(temp_filename, "wb") as f:
+                    f.write(response.content)
+            else:
+                print(f"第 {i+1} 段生成失敗: API 錯誤 {response.status_code} - {response.text}")
         except Exception as e:
             print(f"第 {i+1} 段生成失敗: {e}")
             
@@ -690,15 +694,15 @@ def generate_gemini_tts(segments, output_filename="podcast_full_gemini.wav", api
     combined = AudioSegment.empty()
     for temp_file in temp_files:
         if os.path.exists(temp_file):
-            audio = AudioSegment.from_wav(temp_file)
-            combined += audio
             try:
+                audio = AudioSegment.from_mp3(temp_file)
+                combined += audio
                 os.remove(temp_file)
-            except:
-                pass
+            except Exception as e:
+                print(f"拼接失敗: {e}")
                 
     output_path = os.path.join(BASE_DIR, output_filename)
-    combined.export(output_path, format="wav")
+    combined.export(output_path, format="mp3")
     print(f"✅ 拼接完成！檔案已儲存為：{output_path}")
 
 if __name__ == "__main__":
@@ -712,7 +716,7 @@ if __name__ == "__main__":
             
             ${method === 'edge' 
                 ? `asyncio.run(generate_edge_tts(segments, output_filename="podcast_full.mp3"))`
-                : `generate_gemini_tts(segments, output_filename="podcast_full.wav", api_key="${apiKey}")`}
+                : `generate_siliconflow_tts(segments, output_filename="podcast_full.mp3", api_key="${apiKey}")`}
     except Exception as e:
         import traceback
         print("\\n❌ 發生錯誤：")
