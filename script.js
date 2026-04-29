@@ -487,13 +487,30 @@ ${agenda}
     const geminiKeyGroup = document.getElementById('geminiKeyGroup');
     const geminiApiKey = document.getElementById('geminiApiKey');
     const downloadPythonBtn = document.getElementById('downloadPythonBtn');
+    
+    // Cost Estimation Logic
+    const charCount = document.getElementById('charCount');
+    const twdCost = document.getElementById('twdCost');
+    const geminiCostInfo = document.getElementById('geminiCostInfo');
+    const COST_PER_CHAR_TWD = 0.002; // 每字約 0.002 元台幣
+
+    if (audioTextInput && charCount && twdCost) {
+        audioTextInput.addEventListener('input', () => {
+            const length = audioTextInput.value.length;
+            charCount.textContent = length;
+            // 計算費用並保留小數點後兩位
+            twdCost.textContent = (length * COST_PER_CHAR_TWD).toFixed(2);
+        });
+    }
 
     if (ttsMethod) {
         ttsMethod.addEventListener('change', (e) => {
             if (e.target.value === 'gemini') {
                 geminiKeyGroup.style.display = 'block';
+                if (geminiCostInfo) geminiCostInfo.style.display = 'inline';
             } else {
                 geminiKeyGroup.style.display = 'none';
+                if (geminiCostInfo) geminiCostInfo.style.display = 'none';
             }
         });
     }

@@ -114,6 +114,10 @@
                 <div class="input-group">
                     <label for="audioTextInput">請貼上要轉換語音的完整廣播稿</label>
                     <textarea id="audioTextInput" placeholder="將要轉成語音的長篇廣播稿貼在這裡..." class="custom-textarea" style="min-height: 150px;"></textarea>
+                    <div id="costEstimator" style="margin-top: 8px; font-size: 0.85rem; color: #a1a1aa;">
+                        📊 字數統計：<span id="charCount" style="color: #60a5fa; font-weight: bold;">0</span> 字 
+                        <span id="geminiCostInfo" style="display: none; margin-left: 10px;">| 💰 預估 Gemini 費用 (若超出免費額度)：約 <span id="twdCost" style="color: #f472b6; font-weight: bold;">0.00</span> 元台幣</span>
+                    </div>
                 </div>
                 
                 <div class="input-group" style="margin-top: 15px;">
