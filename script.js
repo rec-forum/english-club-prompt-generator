@@ -557,8 +557,18 @@ async def generate_edge_tts(segments, output_filename="podcast_full_edge.mp3"):
     print(f"✅ 拼接完成！檔案已儲存為：{output_path}")
 
 # ---------------------------------------------------------------------------
-# 文字切割與語者辨識邏輯
 # ---------------------------------------------------------------------------
+# 文字切割、語者辨識與雜訊過濾邏輯
+# ---------------------------------------------------------------------------
+def clean_text_for_tts(text):
+    # 移除 (laughs), (sighs) 等小括號內的文字，避免被 TTS 引擎唸出
+    text = re.sub(r'\\([^)]*\\)', '', text)
+    # 移除 [xxx] 等中括號文字 (如果有)
+    text = re.sub(r'\\[[^]]*\\]', '', text)
+    # 移除多餘的空白
+    text = re.sub(r'\\s+', ' ', text)
+    return text.strip()
+
 def parse_text_by_speaker(text):
     # 設定雙主特人聲音 (Speaker 1 男聲, Speaker 2 女聲)
     voice_spk1 = "zh-TW-YunJheNeural"
@@ -571,25 +581,32 @@ def parse_text_by_speaker(text):
     
     for line in lines:
         line_stripped = line.strip()
-        if line_stripped.startswith("Speaker 1:"):
+        lower_line = line_stripped.lower()
+        
+        # 判斷說話者 (不分大小寫)
+        if lower_line.startswith("speaker 1:"):
             if current_text.strip():
-                segments.append((current_voice, current_text.strip()))
+                segments.append((current_voice, clean_text_for_tts(current_text)))
             current_voice = voice_spk1
-            current_text = line_stripped.replace("Speaker 1:", "").strip() + " "
-        elif line_stripped.startswith("Speaker 2:"):
+            line_content = re.sub(r'(?i)^speaker 1:\\s*', '', line_stripped)
+            current_text = line_content + " "
+        elif lower_line.startswith("speaker 2:"):
             if current_text.strip():
-                segments.append((current_voice, current_text.strip()))
+                segments.append((current_voice, clean_text_for_tts(current_text)))
             current_voice = voice_spk2
-            current_text = line_stripped.replace("Speaker 2:", "").strip() + " "
+            line_content = re.sub(r'(?i)^speaker 2:\\s*', '', line_stripped)
+            current_text = line_content + " "
         else:
             current_text += line_stripped + " "
             
     if current_text.strip():
-        segments.append((current_voice, current_text.strip()))
+        segments.append((current_voice, clean_text_for_tts(current_text)))
         
     # 如果單一句對話太長(>800字)，還是需要切片以避開限制
     final_segments = []
     for voice, text_chunk in segments:
+        if not text_chunk:
+            continue
         if len(text_chunk) > 800:
             sentences = re.split(r'(?<=[.!?。！？])\\s+', text_chunk)
             sub_chunk = ""
