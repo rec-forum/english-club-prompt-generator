@@ -663,7 +663,7 @@ def generate_gemini_tts(segments, output_filename="podcast_full_gemini.wav", api
         print(f"正在生成第 {i+1}/{len(segments)} 段 (Gemini 語音: {gemini_voice})...")
         try:
             response = client.models.generate_content(
-                model="gemini-2.5-flash", 
+                model="gemini-2.0-flash", 
                 contents=chunk,
                 config=types.GenerateContentConfig(
                     response_modalities=["AUDIO"],
