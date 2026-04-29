@@ -111,8 +111,39 @@
 
         <div id="tab-audio" class="tab-content">
             <section class="input-section">
+                <div class="input-group">
+                    <label for="audioTextInput">請貼上要轉換語音的完整廣播稿</label>
+                    <textarea id="audioTextInput" placeholder="將要轉成語音的長篇廣播稿貼在這裡..." class="custom-textarea" style="min-height: 150px;"></textarea>
+                </div>
+                
+                <div class="input-group" style="margin-top: 15px;">
+                    <label for="ttsMethod">選擇語音引擎 (自動生成 Python 執行檔)</label>
+                    <select id="ttsMethod" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; margin-bottom: 15px;">
+                        <option value="edge" style="color: black;"> 免費 Edge TTS (最推薦，無機器音，免金鑰)</option>
+                        <option value="gemini" style="color: black;"> Gemini API (需自備 API Key)</option>
+                    </select>
+                </div>
+
+                <div class="input-group" id="geminiKeyGroup" style="display: none;">
+                    <label for="geminiApiKey">Gemini API Key</label>
+                    <input type="password" id="geminiApiKey" placeholder="請輸入您的 Gemini API Key..." autocomplete="off">
+                </div>
+
+                <button id="downloadPythonBtn" class="primary-btn" style="margin-top: 20px; background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    <span>⬇️ 下載專屬執行檔 (Python)</span>
+                </button>
+
+                <div class="instruction-box" style="margin-top: 30px;">
+                    <p>💡 <strong>專屬執行檔使用教學：</strong></p>
+                    <ol>
+                        <li>貼上文字並點擊上方的「下載專屬執行檔」，您會得到一個 <code>run_tts.py</code> 檔案。</li>
+                        <li>打開終端機或命令提示字元 (cmd)，輸入 <code>pip install pydub edge-tts google-genai</code> 安裝套件。</li>
+                        <li>執行 <code>python run_tts.py</code>，它就會自動幫您生成無長度限制的完整 MP3 音檔！</li>
+                    </ol>
+                </div>
+
                 <div class="instruction-box">
-                    <p>💡 <strong>如何獲得「流利、生動且一字不漏」的廣播語音：</strong></p>
+                    <p>💡 <strong>其他網頁版方案：</strong></p>
                     <p>如果您希望聽起來要是**流利自然的真人語調 (不是死板的機器人)**，並且能直接下載音檔，強烈推薦使用以下免費方案：</p>
                     <ol>
                         <li><strong>Google AI Studio (✨最強烈推薦，操作最簡單且可下載音檔✨)：</strong> 
