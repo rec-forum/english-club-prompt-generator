@@ -600,8 +600,8 @@ def clean_text_for_tts(text):
 
 def parse_text_by_speaker(text):
     # 設定雙主特人聲音 (Speaker 1 男聲, Speaker 2 女聲)
-    voice_spk1 = "zh-TW-YunJheNeural"
-    voice_spk2 = "zh-TW-HsiaoChenNeural"
+    voice_spk1 = "zh-CN-YunxiNeural"
+    voice_spk2 = "zh-CN-XiaoxiaoNeural"
     
     lines = text.split('\\n')
     segments = []
