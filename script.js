@@ -606,13 +606,24 @@ def split_text_into_chunks(text, max_chars=800):
     return chunks
 
 if __name__ == "__main__":
-    sample_text = """${safeText}"""
+    try:
+        sample_text = """${safeText}"""
+        
+        if not sample_text.strip():
+            print("❌ 錯誤：廣播稿內容為空，請確認您有貼上文字！")
+        else:
+            chunks = split_text_into_chunks(sample_text, max_chars=800)
+            
+            ${method === 'edge' 
+                ? `asyncio.run(generate_edge_tts(chunks, output_filename="podcast_full.mp3"))`
+                : `generate_gemini_tts(chunks, output_filename="podcast_full.wav", api_key="${apiKey}")`}
+    except Exception as e:
+        import traceback
+        print("\\n❌ 發生錯誤：")
+        traceback.print_exc()
     
-    chunks = split_text_into_chunks(sample_text, max_chars=800)
-    
-    ${method === 'edge' 
-        ? `asyncio.run(generate_edge_tts(chunks, output_filename="podcast_full.mp3"))`
-        : `generate_gemini_tts(chunks, output_filename="podcast_full.wav", api_key="${apiKey}")`}
+    print("\\n====================================")
+    input("執行完畢！請按 Enter 鍵關閉此視窗...")
 `;
 
             // trigger download
