@@ -531,7 +531,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # ---------------------------------------------------------------------------
 import edge_tts
 
-async def generate_edge_tts(text_chunks, output_filename="podcast_full_edge.mp3", voice="en-US-AriaNeural"):
+async def generate_edge_tts(text_chunks, output_filename="podcast_full_edge.mp3", voice="zh-TW-HsiaoChenNeural"):
     temp_files = []
     print(f"總共分為 {len(text_chunks)} 個段落，開始生成 Edge TTS...")
     for i, chunk in enumerate(text_chunks):
