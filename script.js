@@ -529,7 +529,7 @@ ${agenda}
             }
 
             const method = ttsMethod.value;
-            const apiKey = geminiApiKey ? geminiApiKey.value.trim() : '';
+            const apiKey = geminiApiKey ? geminiApiKey.value.trim().replace(/[\u200B-\u200D\uFEFF]/g, '') : '';
 
             if (method === 'siliconflow') {
                 if (!apiKey) {
