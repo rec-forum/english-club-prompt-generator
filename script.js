@@ -537,7 +537,7 @@ ${agenda}
                     return;
                 }
                 // 檢查 API Key 是否包含非 ASCII 字元 (例如中文或全形字元)
-                if (!/^[\\x00-\\x7F]+$/.test(apiKey)) {
+                if (!/^[\x00-\x7F]+$/.test(apiKey)) {
                     alert('❌ 錯誤：API Key 只能包含英文、數字與基本符號，您似乎不小心貼到了中文或其他特殊字元！請重新確認。');
                     return;
                 }
