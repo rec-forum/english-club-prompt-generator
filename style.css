@@ -576,6 +576,10 @@ textarea:focus {
         width: 100%;
     }
 
+    .undo-btn {
+        grid-column: span 2;
+    }
+
     .suggestion-btn {
         justify-content: center;
         padding: 1rem 0.5rem;

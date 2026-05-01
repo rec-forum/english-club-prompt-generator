@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const outputArea = document.getElementById('outputArea');
     const copyBtn = document.getElementById('copyBtn');
     const copyText = document.getElementById('copyText');
-    const btnSlotMachine = document.getElementById('btnSlotMachine');
+    const btnSlot1 = document.getElementById('btnSlot1');
+    const btnSlot2 = document.getElementById('btnSlot2');
     const btnUndo = document.getElementById('btnUndo');
     const topicCategory = document.getElementById('topicCategory');
     const eventTypeRadios = document.getElementsByName('eventType');
@@ -193,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    btnSlotMachine.addEventListener('click', async () => {
+    async function handleSlotClick(inputEl, btnEl) {
         // Save history
         if (topicInput1.value || topicInput2.value) {
             topicHistory.push({ t1: topicInput1.value, t2: topicInput2.value });
@@ -201,25 +202,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const category = topicCategory.value;
+        const originalText = btnEl.querySelector('span:last-child').innerText;
         
-        btnSlotMachine.disabled = true;
-        btnSlotMachine.innerHTML = `<span class="icon">🎰</span><span>抽題中...</span>`;
+        btnEl.disabled = true;
+        btnEl.innerHTML = `<span class="icon">🎰</span><span>抽題中...</span>`;
         
-        // Ensure both slots spin, but at the end, ensure they don't pick the exact same topic if possible
-        await Promise.all([
-            slotMachineEffect(topicInput1, category),
-            slotMachineEffect(topicInput2, category)
-        ]);
+        await slotMachineEffect(inputEl, category);
 
         // Fix duplicate topics
-        if (topicInput1.value === topicInput2.value) {
+        if (topicInput1.value === topicInput2.value && topicInput1.value !== "") {
             const pool = category === 'all' ? Object.values(topicPools).flat() : topicPools[category];
-            topicInput2.value = getRandomTopicExclude(pool, topicInput1.value);
+            inputEl.value = getRandomTopicExclude(pool, inputEl === topicInput1 ? topicInput2.value : topicInput1.value);
         }
 
-        btnSlotMachine.disabled = false;
-        btnSlotMachine.innerHTML = `<span class="icon">🎰</span><span>拉霸抽題</span>`;
-    });
+        btnEl.disabled = false;
+        btnEl.innerHTML = `<span class="icon">🎰</span><span>${originalText}</span>`;
+    }
+
+    btnSlot1.addEventListener('click', () => handleSlotClick(topicInput1, btnSlot1));
+    btnSlot2.addEventListener('click', () => handleSlotClick(topicInput2, btnSlot2));
 
     btnUndo.addEventListener('click', () => {
         if (topicHistory.length > 0) {
