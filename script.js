@@ -401,7 +401,6 @@ Host: ${displayHost}`;
 
 Session 1: [第一篇文章的標題]
 Link: [第一篇文章的真實網址]
-Verify: [請貼上該真實網頁文章的「第一段第一句話」，證明您有確實點開網頁且連結有效]
 Summary: [用英文寫 20 字以內的文章簡介]
 
 Discussion 1:
@@ -415,7 +414,6 @@ Discussion 1:
 
 Session 2: [第二篇文章的標題]
 Link: [第二篇文章的真實網址]
-Verify: [請貼上該真實網頁文章的「第一段第一句話」，證明您有確實點開網頁且連結有效]
 Summary:[用英文寫 20 字以內的文章簡介]
 
 Discussion 2:
@@ -429,7 +427,7 @@ Discussion 2:
 
 ${topicString}請執行以下任務：
 
-1. **絕對禁止憑空捏造網址 (No Hallucination)：** 請務必啟動您的「網頁搜尋功能 (Web Search/Browse)」。您提供的 Link 必須是「您當下搜尋並點擊確認過」的有效網址。為確保您沒有捏造連結，請在 Verify 欄位貼上該網頁的「第一句真實原文」。
+1. **絕對禁止憑空捏造網址 (No Hallucination)：** 請務必啟動您的「網頁搜尋功能 (Web Search/Browse)」。您提供的 Link 必須是「您當下搜尋並點擊確認過」的有效網址。為確保您沒有捏造連結，在產出結果前，請務必親自點進網頁閱讀確認。但請注意：**最終輸出的文本中不需要印出任何驗證或擷取內文的段落，保持版面乾淨。**
 2. **文章來源限制 (白名單)：** 您**只能**從以下指定的網站清單中搜尋文章，**絕對禁止**使用此清單以外的任何來源：
    - Reuters: https://www.reuters.com/
    - Associated Press (AP): https://apnews.com/
