@@ -78,7 +78,17 @@ document.addEventListener('DOMContentLoaded', () => {
             "元宇宙在教育上的應用 (Metaverse in Education)",
             "城市農業與垂直農場 (Urban and Vertical Farming)",
             "基因編輯技術的倫理爭議 (Ethics of Gene Editing)",
-            "遠距醫療的普及與挑戰 (Telemedicine Trends)"
+            "遠距醫療的普及與挑戰 (Telemedicine Trends)",
+            "全民基本收入的可行性 (Universal Basic Income)",
+            "塑膠微粒對海洋與人類的影響 (Microplastics Impact)",
+            "少子化與人口老化的全球危機 (Global Aging Crisis)",
+            "數位貨幣與央行數位貨幣的未來 (Future of CBDC)",
+            "綠能轉型與核能的重新崛起 (Green Energy and Nuclear Power)",
+            "深度偽造技術對選舉的威脅 (Deepfakes in Elections)",
+            "跨國企業的避稅爭議與全球最低稅率 (Global Minimum Tax)",
+            "全球供應鏈的重組與脆弱性 (Supply Chain Restructuring)",
+            "疫苗公平性與全球公衛體系 (Global Vaccine Equity)",
+            "言論自由與社群平台的審查制度 (Censorship on Social Media)"
         ],
         fun: [
             "世界各地的奇特節慶 (Bizarre Festivals Around the World)",
@@ -100,7 +110,17 @@ document.addEventListener('DOMContentLoaded', () => {
             "植物會溝通嗎？ (Do Plants Communicate?)",
             "外星人接觸的各種陰謀論 (Alien Contact Conspiracy Theories)",
             "世界上最昂貴的奇葩食物 (World's Most Expensive Bizarre Foods)",
-            "古代人的超前科技發明 (Ancient High-Tech Inventions)"
+            "古代人的超前科技發明 (Ancient High-Tech Inventions)",
+            "左撇子的科學與歷史迷思 (Science and Myths of Left-Handers)",
+            "為什麼貓咪喜歡紙箱？ (Why Do Cats Love Boxes?)",
+            "夢境的科學與解析 (Science and Interpretation of Dreams)",
+            "各國獨特的排隊文化 (Unique Queue Cultures)",
+            "改變歷史的微小錯誤 (Tiny Mistakes That Changed History)",
+            "世界上最危險的旅遊景點 (Most Dangerous Tourist Spots)",
+            "人類對外星生命的無窮想像 (Human Imagination of Extraterrestrials)",
+            "味覺的秘密與超級味覺者 (Secrets of Taste and Supertasters)",
+            "神秘的麥田圈與超自然現象 (Crop Circles and Paranormal)",
+            "古代的奇葩醫療方式 (Bizarre Ancient Medical Practices)"
         ],
         tech: [
             "人工智慧的道德界線 (AI Ethics)",
@@ -117,7 +137,17 @@ document.addEventListener('DOMContentLoaded', () => {
             "區塊鏈與去中心化未來 (Blockchain Future)",
             "智慧城市的發展 (Smart City Development)",
             "新能源電池技術 (New Battery Tech)",
-            "機器人伴侶的社會影響 (Robot Companions)"
+            "機器人伴侶的社會影響 (Robot Companions)",
+            "可穿戴裝置與健康數據監控 (Wearables and Health Monitoring)",
+            "基因編輯技術 CRISPR 的突破 (Breakthroughs in CRISPR)",
+            "仿生學與大自然的科技啟發 (Biomimicry and Tech Inspiration)",
+            "全息投影技術的商業化 (Commercialization of Holograms)",
+            "物聯網 (IoT) 的資安隱患 (Cybersecurity in IoT)",
+            "6G 網路的未來展望 (Future of 6G Networks)",
+            "開源軟體對科技發展的貢獻 (Impact of Open Source)",
+            "綠色科技與環境永續 (Green Tech and Sustainability)",
+            "太空採礦的可行性 (Feasibility of Space Mining)",
+            "智慧家居對生活方式的改變 (Smart Homes Changing Lifestyles)"
         ],
         life: [
             "極簡主義的生活哲學 (Minimalism Philosophy)",
@@ -134,7 +164,17 @@ document.addEventListener('DOMContentLoaded', () => {
             "培養感恩習慣的力量 (Power of Gratitude)",
             "適應力與心理韌性 (Resilience and Adaptability)",
             "發展個人興趣的價值 (Value of Hobbies)",
-            "如何在混亂中保持平靜 (Finding Peace in Chaos)"
+            "如何在混亂中保持平靜 (Finding Peace in Chaos)",
+            "獨處的藝術與孤獨的區別 (Art of Solitude vs Loneliness)",
+            "斯多葛學派在現代的應用 (Stoicism in Modern Life)",
+            "財務自由與提早退休 (FIRE Movement)",
+            "時間管理與番茄鐘工作法 (Time Management and Pomodoro)",
+            "終身學習的重要性 (Importance of Lifelong Learning)",
+            "如何面對失敗與挫折 (Dealing with Failure and Setbacks)",
+            "微習慣的驚人力量 (The Power of Micro-Habits)",
+            "選擇困難症與決策疲勞 (Decision Fatigue)",
+            "舒適圈的突破與成長 (Stepping Out of Comfort Zone)",
+            "人際關係中的界線設定 (Setting Boundaries in Relationships)"
         ],
         business: [
             "零工經濟的利與弊 (Gig Economy Pros & Cons)",
@@ -151,7 +191,17 @@ document.addEventListener('DOMContentLoaded', () => {
             "微型創業的興起 (Rise of Micro-Entrepreneurship)",
             "知識付費時代的商業模式 (Knowledge Economy Business Models)",
             "職場上的冒名頂替症候群 (Imposter Syndrome)",
-            "無國界企業的崛起 (Rise of Borderless Companies)"
+            "無國界企業的崛起 (Rise of Borderless Companies)",
+            "週休三日的企業實驗結果 (Results of 4-Day Workweek Trials)",
+            "訂閱制經濟的成功與挑戰 (Success and Challenges of Subscription Economy)",
+            "僕人式領導的崛起 (Rise of Servant Leadership)",
+            "企業如何應對世代交替 (How Companies Handle Generational Shifts)",
+            "職場霸凌與有毒的企業文化 (Workplace Bullying and Toxic Culture)",
+            "敏捷式管理的應用與迷思 (Agile Management Myths)",
+            "斜槓青年的職涯發展 (Career Development of Slashies)",
+            "後疫情時代的辦公室設計 (Post-Pandemic Office Design)",
+            "B2B 與 B2C 行銷的差異 (Differences Between B2B and B2C Marketing)",
+            "危機公關與品牌聲譽管理 (Crisis PR and Brand Reputation)"
         ]
     };
 
