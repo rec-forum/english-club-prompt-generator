@@ -206,10 +206,34 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let topicHistory = [];
+    let usedTopics = new Set(); // Track used topics to prevent recent repeats
 
     // Helper to get random item
     function getRandomTopic(array) {
         return array[Math.floor(Math.random() * array.length)];
+    }
+
+    // Helper to get random item that hasn't been used recently
+    function getUniqueRandomTopic(pool) {
+        let available = pool.filter(t => !usedTopics.has(t));
+        
+        // If all topics in this pool have been used, reset the used history
+        // for this specific pool to keep the slot machine working
+        if (available.length === 0) {
+            pool.forEach(t => usedTopics.delete(t));
+            available = pool;
+        }
+        
+        const topic = getRandomTopic(available);
+        usedTopics.add(topic);
+        
+        // Keep the set from growing infinitely (e.g. max 50 remembered)
+        if (usedTopics.size > 50) {
+            const iterator = usedTopics.values();
+            usedTopics.delete(iterator.next().value);
+        }
+        
+        return topic;
     }
 
     function getRandomTopicExclude(array, excludeTopic) {
@@ -223,21 +247,35 @@ document.addEventListener('DOMContentLoaded', () => {
             ? Object.values(topicPools).flat() 
             : topicPools[category];
         
-        let iterations = 20;
-        let speed = 40;
+        // Randomize iterations and speed for a more dynamic but QUICK feel
+        let iterations = Math.floor(Math.random() * 5) + 12; // 12 to 16 spins (fast)
+        let speed = Math.floor(Math.random() * 10) + 20; // 20 to 29 ms initial speed
         
         inputEl.classList.add('slot-spinning');
 
         return new Promise(resolve => {
+            let lastDisplayTopic = "";
             function tick() {
-                inputEl.value = getRandomTopic(pool);
+                // Pick a random topic for the animation, ensuring it doesn't repeat the previous frame
+                let displayTopic = getRandomTopic(pool);
+                while (displayTopic === lastDisplayTopic && pool.length > 1) {
+                    displayTopic = getRandomTopic(pool);
+                }
+                lastDisplayTopic = displayTopic;
+                inputEl.value = displayTopic;
+                
                 iterations--;
                 if (iterations > 0) {
-                    speed *= 1.1; // gradually slow down
+                    speed *= (1.1 + Math.random() * 0.1); // slow down faster
                     setTimeout(tick, speed);
                 } else {
                     inputEl.classList.remove('slot-spinning');
-                    resolve(inputEl.value);
+                    
+                    // For the final result, pick a completely unique topic that hasn't been used recently
+                    const finalTopic = getUniqueRandomTopic(pool);
+                    inputEl.value = finalTopic;
+                    
+                    resolve(finalTopic);
                 }
             }
             tick();
@@ -259,10 +297,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         await slotMachineEffect(inputEl, category);
 
-        // Fix duplicate topics
+        // Fix duplicate topics between the two inputs
         if (topicInput1.value === topicInput2.value && topicInput1.value !== "") {
             const pool = category === 'all' ? Object.values(topicPools).flat() : topicPools[category];
-            inputEl.value = getRandomTopicExclude(pool, inputEl === topicInput1 ? topicInput2.value : topicInput1.value);
+            // Ensure the new topic hasn't been used recently either
+            let newTopic = getUniqueRandomTopic(pool);
+            while (newTopic === (inputEl === topicInput1 ? topicInput2.value : topicInput1.value) && pool.length > 1) {
+                newTopic = getUniqueRandomTopic(pool);
+            }
+            inputEl.value = newTopic;
         }
 
         btnEl.disabled = false;
