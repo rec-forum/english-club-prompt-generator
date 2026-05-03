@@ -429,15 +429,115 @@ Discussion 2:
 
 ${topicString}請執行以下任務：
 
-1. **絕對禁止憑空捏造網址 (No Hallucination)：** 請務必啟動您的「網頁搜尋功能 (Web Search/Browse)」。您提供的 Link 必須是「您當下搜尋並點擊確認過」的有效網址。為確保您沒有捏造連結，請在 Verify 欄位貼上該網頁的「第一句真實原文」。建議優先搜尋：BBC News, NPR, The Guardian, Time, Medium (免費文章) 等知名網站。
-2. **兩篇文章主題必須完全不同：** 確保這兩篇文章的主題與領域完全不同且互不相關，以增加會議討論的多樣性。
-3. **文章品質與條件約束：**
+1. **絕對禁止憑空捏造網址 (No Hallucination)：** 請務必啟動您的「網頁搜尋功能 (Web Search/Browse)」。您提供的 Link 必須是「您當下搜尋並點擊確認過」的有效網址。為確保您沒有捏造連結，請在 Verify 欄位貼上該網頁的「第一句真實原文」。
+2. **文章來源限制 (白名單)：** 您**只能**從以下指定的網站清單中搜尋文章，**絕對禁止**使用此清單以外的任何來源：
+   - Reuters: https://www.reuters.com/
+   - Associated Press (AP): https://apnews.com/
+   - Agence France-Presse (AFP): https://www.afp.com/en
+   - BBC News: https://www.bbc.com/news
+   - The New York Times: https://www.nytimes.com/
+   - The Guardian: https://www.theguardian.com/
+   - The Wall Street Journal: https://www.wsj.com/
+   - CNN: https://edition.cnn.com/
+   - The Washington Post: https://www.washingtonpost.com/
+   - The Independent: https://www.independent.co.uk/
+   - NPR: https://www.npr.org/
+   - Bloomberg: https://www.bloomberg.com/
+   - CNBC: https://www.cnbc.com/
+   - Nature: https://www.nature.com/
+   - ScienceDaily: https://www.sciencedaily.com/
+   - Medical News Today: https://www.medicalnewstoday.com/
+   - National Geographic: https://www.nationalgeographic.com/
+   - The Verge: https://www.theverge.com/
+   - TechCrunch: https://techcrunch.com/
+   - The Japan Times: https://www.japantimes.co.jp/
+   - Financial Times: https://www.ft.com/
+   - The Telegraph: https://www.telegraph.co.uk/
+   - The Times: https://www.thetimes.co.uk/
+   - USA Today: https://www.usatoday.com/
+   - Los Angeles Times: https://www.latimes.com/
+   - Al Jazeera English: https://www.aljazeera.com/
+   - DW: https://www.dw.com/en/
+   - France 24: https://www.france24.com/en/
+   - Sky News: https://news.sky.com/
+   - ABC News: https://abcnews.go.com/
+   - CBS News: https://www.cbsnews.com/
+   - NBC News: https://www.nbcnews.com/
+   - The Economist: https://www.economist.com/
+   - Time: https://time.com/
+   - Newsweek: https://www.newsweek.com/
+   - Forbes: https://www.forbes.com/
+   - Fortune: https://fortune.com/
+   - Business Insider: https://www.businessinsider.com/
+   - The Atlantic: https://www.theatlantic.com/
+   - Harvard Business Review: https://hbr.org/
+   - Wired: https://www.wired.com/
+   - Scientific American: https://www.scientificamerican.com/
+   - MIT Technology Review: https://www.technologyreview.com/
+   - New Scientist: https://www.newscientist.com/
+   - Psychology Today: https://www.psychologytoday.com/
+   - WebMD: https://www.webmd.com/
+   - South China Morning Post: https://www.scmp.com/
+   - The Straits Times: https://www.straitstimes.com/
+   - Focus Taiwan: https://focustaiwan.tw/
+   - UPI: https://www.upi.com/
+   - The Sydney Morning Herald: https://www.smh.com.au/
+   - The Globe and Mail: https://www.theglobeandmail.com/
+   - Toronto Star: https://www.thestar.com/
+   - The New Zealand Herald: https://www.nzherald.co.nz/
+   - The Times of India: https://timesofindia.indiatimes.com/
+   - The Hindu: https://www.thehindu.com/
+   - The Korea Herald: https://www.koreaherald.com/
+   - The Korea Times: https://www.koreatimes.co.kr/
+   - Taipei Times: https://www.taipeitimes.com/
+   - The Jakarta Post: https://www.thejakartapost.com/
+   - Bangkok Post: https://www.bangkokpost.com/
+   - CNA: https://www.channelnewsasia.com/
+   - Kyodo News: https://english.kyodonews.net/
+   - Mainichi Daily News: https://mainichi.jp/english/
+   - Asahi Shimbun: https://www.asahi.com/ajw/
+   - The Japan News: https://japannews.yomiuri.co.jp/
+   - The Daily Telegraph: https://www.dailytelegraph.com.au/
+   - The Irish Times: https://www.irishtimes.com/
+   - The Scotsman: https://www.scotsman.com/
+   - The Boston Globe: https://www.bostonglobe.com/
+   - Chicago Tribune: https://www.chicagotribune.com/
+   - New York Post: https://nypost.com/
+   - HuffPost: https://www.huffpost.com/
+   - Vox: https://www.vox.com/
+   - Vice: https://www.vice.com/
+   - Axios: https://www.axios.com/
+   - Politico: https://www.politico.com/
+   - The Hill: https://thehill.com/
+   - CNET: https://www.cnet.com/
+   - Engadget: https://www.engadget.com/
+   - Ars Technica: https://arstechnica.com/
+   - Mashable: https://mashable.com/
+   - Gizmodo: https://gizmodo.com/
+   - Space.com: https://www.space.com/
+   - Smithsonian Magazine: https://www.smithsonianmag.com/
+   - Popular Science: https://www.popsci.com/
+   - Popular Mechanics: https://www.popularmechanics.com/
+   - Discover Magazine: https://www.discovermagazine.com/
+   - Live Science: https://www.livescience.com/
+   - Entertainment Weekly: https://ew.com/
+   - Variety: https://variety.com/
+   - The Hollywood Reporter: https://www.hollywoodreporter.com/
+   - Rolling Stone: https://www.rollingstone.com/
+   - Vogue: https://www.vogue.com/
+   - GQ: https://www.gq.com/
+   - ESPN: https://www.espn.com/
+   - Sports Illustrated: https://www.si.com/
+   - Lonely Planet: https://www.lonelyplanet.com/
+   - Travel + Leisure: https://www.travelandleisure.com/
+   - Fast Company: https://www.fastcompany.com/
+3. **兩篇文章主題必須完全不同：** 確保這兩篇文章的主題與領域完全不同且互不相關，以增加會議討論的多樣性。
+4. **文章品質與條件約束：**
    - **高度可討論性：** 文章內容必須能夠引發不同的觀點，適合用來進行開放式的深度討論與經驗分享。
    - **時效性限制：** 發表時間必須在 **最近 3 個月內**。
-   - **來源公信力：** 來源必須是 **知名度高、具公信力或主流的熱門網站** (例如主流媒體、知名雜誌、權威部落格等)，請絕對不要使用冷門、不知名的鄉野文章。
    - **長度限制：** 必須在 5 分鐘內可以閱讀完畢，也不能太短 (大於 200 字)。
-4. **避免的主題：** 避免過於艱澀的科技、政治或青少年流行語、避免老人相關話題(因為這已經重複太多)。難易度需維持在中等 (Intermediate)，用字遣詞優美但不晦澀。
-5. **產出格式：** 請嚴格遵守以下格式輸出。討論問題請使用「英文」撰寫。
+5. **避免的主題：** 避免過於艱澀的科技、政治或青少年流行語、避免老人相關話題(因為這已經重複太多)。難易度需維持在中等 (Intermediate)，用字遣詞優美但不晦澀。
+6. **產出格式：** 請嚴格遵守以下格式輸出。討論問題請使用「英文」撰寫。
 
 ---
 
