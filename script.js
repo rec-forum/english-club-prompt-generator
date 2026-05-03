@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             topicString += `\n`;
         }
 
-        const displayHost = hostName ? hostName : '[請填入主持人姓名]';
+        const displayHost = hostName ? hostName : 'Danny';
         
         let headerString = '';
         
@@ -395,7 +395,12 @@ P.S.
         const t1 = topicInput1.value.trim();
         const t2 = topicInput2.value.trim();
         const eventType = document.querySelector('input[name="eventType"]:checked').value;
-        const hostName = hostInput.value.trim();
+        let hostName = hostInput.value.trim();
+        
+        if (!hostName) {
+            hostName = 'Danny';
+            hostInput.value = hostName; // Update UI to show the generated name
+        }
         
         const promptText = generatePrompt(t1, t2, eventType, hostName);
         
