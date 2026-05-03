@@ -73,7 +73,27 @@ document.addEventListener('DOMContentLoaded', () => {
             "Global Supply Chain & Trade (全球供應鏈與貿易)",
             "Renewable Energy Transition (再生能源轉型)",
             "Food Security & Future Diets (糧食安全與未來飲食)",
-            "Modern Education & EdTech (現代教育與科技)"
+            "Modern Education & EdTech (現代教育與科技)",
+            "The Impact of Globalization (全球化的影響與反思)",
+            "Mental Health Awareness Globally (全球心理健康意識)",
+            "Income Inequality & Wealth Gap (貧富差距與收入不平等)",
+            "Gender Equality & Human Rights (性別平權與人權)",
+            "Water Scarcity & Resource Management (水資源短缺與管理)",
+            "The Rise of the Creator Economy (創作者經濟的崛起)",
+            "Automation & the Future of Jobs (自動化與未來就業)",
+            "Political Polarization & Media (政治兩極化與媒體)",
+            "Sustainable Fashion & Consumerism (永續時尚與消費主義)",
+            "Electric Vehicles & The Auto Industry (電動車與汽車產業)",
+            "Fake News & Information Literacy (假新聞與資訊素養)",
+            "Housing Crisis in Major Cities (大城市的住房危機)",
+            "The Gig Economy & Labor Rights (零工經濟與勞工權益)",
+            "Cryptocurrency & Decentralized Finance (加密貨幣與去中心化金融)",
+            "The Evolution of the Entertainment Industry (娛樂產業的演進)",
+            "Post-Pandemic Lifestyle Changes (後疫情時代的生活方式改變)",
+            "Wildlife Conservation Efforts (野生動物保育工作)",
+            "The Ethics of Big Data (大數據的倫理爭議)",
+            "Cultural Globalization vs. Local Traditions (文化全球化 vs 在地傳統)",
+            "The Future of Global Travel (全球旅遊業的未來)"
         ],
         fun: [
             "Psychology of Human Behavior (人類行為心理學)",
@@ -88,7 +108,29 @@ document.addEventListener('DOMContentLoaded', () => {
             "Music & Cognitive Science (音樂與認知科學)",
             "Sleep & Brain Science (睡眠與腦科學)",
             "Hobbies & Personal Growth (興趣與個人成長)",
-            "Social Relationships & Friendship (社會關係與友誼)"
+            "Social Relationships & Friendship (社會關係與友誼)",
+            "Mysteries of the Deep Ocean (深海的奧秘)",
+            "The Science of Happiness (快樂的科學)",
+            "Bizarre and Unusual Phobias (奇特與罕見的恐懼症)",
+            "The History of Food and Culinary Arts (食物與烹飪歷史)",
+            "Amazing Animal Intelligence (令人驚嘆的動物智力)",
+            "Optical Illusions and Brain Tricks (視錯覺與大腦欺騙)",
+            "Unsolved Historical Mysteries (未解的歷史謎團)",
+            "The Psychology of Collecting Things (收集物品的心理學)",
+            "Strange Superstitions Around the World (世界各地的奇特迷信)",
+            "Accidental Inventions that Changed the World (改變世界的意外發明)",
+            "Extreme Environments on Earth (地球上的極端環境)",
+            "The Evolution of Language and Slang (語言與俚語的演變)",
+            "Mind-Boggling Guinness World Records (令人難以置信的金氏世界紀錄)",
+            "The Cultural Significance of Colors (顏色的文化意義)",
+            "Famous Art Heists and Forgeries (著名的藝術品竊案與偽造)",
+            "Weird Laws Still in Existence (至今仍然存在的奇葩法律)",
+            "The Science of Laughter and Humor (笑與幽默的科學)",
+            "The Psychology behind Magic Tricks (魔術背後的心理學)",
+            "Coffee Culture Around the Globe (全球咖啡文化)",
+            "The Origin of Popular Fairy Tales (流行童話故事的起源)",
+            "Intriguing Urban Legends (引人入勝的都市傳說)",
+            "The Secrets of Supertasters (超級味覺者的秘密)"
         ],
         tech: [
             "Breakthroughs in Medical Technology (醫療科技突破)",
@@ -100,7 +142,32 @@ document.addEventListener('DOMContentLoaded', () => {
             "Green Tech & Environmental Engineering (綠色科技與環境工程)",
             "Data Science & Big Data (資料科學與大數據)",
             "Space Economy & Satellites (太空經濟與衛星)",
-            "Quantum Computing Developments (量子運算發展)"
+            "Quantum Computing Developments (量子運算發展)",
+            "Artificial Intelligence Ethics & Regulation (AI 倫理與監管)",
+            "Brain-Computer Interfaces (腦機介面技術)",
+            "Deepfakes and Media Authenticity (深偽技術與媒體真實性)",
+            "Drone Technology and Commercial Uses (無人機技術與商業應用)",
+            "3D Printing in Manufacturing and Medicine (3D列印在製造與醫療的應用)",
+            "Smart Home Technologies (智慧家庭科技)",
+            "The Internet of Things (IoT) Security (物聯網資安)",
+            "Next-Generation Battery Technologies (次世代電池技術)",
+            "Biomimicry: Tech Inspired by Nature (仿生學：受大自然啟發的科技)",
+            "Nuclear Fusion and Future Energy (核融合與未來能源)",
+            "Cybersecurity Threats and Defenses (網路安全威脅與防禦)",
+            "Autonomous Vehicles and Urban Mobility (自駕車與城市移動)",
+            "The Evolution of Social Media Algorithms (社群媒體演算法的演進)",
+            "Wearable Health Monitors (穿戴式健康監測設備)",
+            "Cloud Computing and Data Storage (雲端運算與資料儲存)",
+            "Augmented Reality in Retail and Education (AR 在零售與教育的應用)",
+            "Advancements in Space Tourism (太空旅遊的進展)",
+            "Synthetic Biology and Future Medicine (合成生物學與未來醫學)",
+            "Microplastics Filtering Technology (微塑膠過濾技術)",
+            "The Rollout of 6G Networks (6G 網路的發展)",
+            "Open Source Software Movement (開源軟體運動)",
+            "Holographic Displays and Communications (全息投影與通訊)",
+            "Vertical Farming and Agri-Tech (垂直農場與農業科技)",
+            "Edge Computing (邊緣運算)",
+            "Cybernetics and Human Augmentation (控制論與人體增強)"
         ],
         life: [
             "Minimalism & Modern Lifestyles (極簡主義與現代生活方式)",
@@ -112,7 +179,32 @@ document.addEventListener('DOMContentLoaded', () => {
             "Emotional Intelligence (情緒智商 EQ)",
             "Habits & Behavior Change (習慣與行為改變)",
             "Resilience & Overcoming Adversity (韌性與克服逆境)",
-            "Lifelong Learning (終身學習)"
+            "Lifelong Learning (終身學習)",
+            "The Science of Motivation (動機的科學)",
+            "Stoicism in Modern Daily Life (斯多葛學派在現代的應用)",
+            "Finding Purpose and Meaning (尋找人生的目標與意義)",
+            "Time Management and Productivity (時間管理與生產力)",
+            "The Psychology of Procrastination (拖延症的心理學)",
+            "Navigating Midlife Transitions (應對中年危機與轉機)",
+            "The Power of Gratitude (感恩的力量)",
+            "Developing Healthy Boundaries (建立健康的界線)",
+            "The Art of Solitude vs. Loneliness (獨處的藝術與孤獨的區別)",
+            "Overcoming Imposter Syndrome (克服冒名頂替症候群)",
+            "The Importance of Sleep Hygiene (睡眠衛生的重要性)",
+            "Alternative Medicine and Holistic Health (替代醫學與全人健康)",
+            "Financial Independence and Retire Early (FIRE) (財務自由與提早退休)",
+            "Decluttering and Mental Clarity (整理物品與心靈澄淨)",
+            "The Impact of Diet on Mental Health (飲食對心理健康的影響)",
+            "Cultivating Empathy and Compassion (培養同理心與慈悲心)",
+            "The Psychology of Decision Making (決策心理學)",
+            "Building and Maintaining Friendships in Adulthood (成年後建立與維持友誼)",
+            "Exploring Different Parenting Styles (探討不同的教養方式)",
+            "The Benefits of Volunteering (做志工的益處)",
+            "Strategies for Coping with Stress (應對壓力的策略)",
+            "The Relationship Between Exercise and Mood (運動與情緒的關聯)",
+            "Dealing with Grief and Loss (面對悲傷與失去)",
+            "The Philosophy of Slow Living (慢活哲學)",
+            "Aging Gracefully and Healthily (優雅且健康地變老)"
         ],
         business: [
             "Entrepreneurship & Startups (創業與新創公司)",
@@ -124,7 +216,32 @@ document.addEventListener('DOMContentLoaded', () => {
             "Corporate Social Responsibility (企業社會責任)",
             "Innovation & Corporate Strategy (創新與企業策略)",
             "Global Markets & International Business (全球市場與國際商業)",
-            "Productivity & Time Management (生產力與時間管理)"
+            "Productivity & Time Management (生產力與時間管理)",
+            "The Impact of Inflation on Daily Life (通貨膨脹對日常生活的影響)",
+            "Remote Work Communication Challenges (遠距工作的溝通挑戰)",
+            "Quiet Quitting and Employee Engagement (安靜離職與員工參與度)",
+            "ESG (Environmental, Social, Governance) Investing (ESG 投資)",
+            "Personal Branding in the Digital Age (數位時代的個人品牌)",
+            "The Evolution of Influencer Marketing (影響力行銷的演進)",
+            "Cross-Cultural Management in Global Teams (全球團隊的跨文化管理)",
+            "The Hidden Cost of Emotional Labor (情緒勞動的隱形成本)",
+            "Upskilling and Reskilling for the Future (為未來提升與重新學習技能)",
+            "Greenwashing vs. Genuine Sustainability (漂綠與真正的永續發展)",
+            "Diversity, Equity, and Inclusion (DEI) in the Workplace (職場的多元平權與包容)",
+            "The Subscription Economy Business Model (訂閱制經濟的商業模式)",
+            "Servant Leadership in Modern Organizations (現代企業中的僕人式領導)",
+            "Generational Shifts in the Workplace (職場的世代交替)",
+            "Managing Toxic Workplace Cultures (應對有毒的職場文化)",
+            "Agile Management Principles (敏捷式管理的原則)",
+            "The Rise of Borderless Companies (無國界企業的崛起)",
+            "B2B vs. B2C Marketing Strategies (B2B 與 B2C 行銷策略的差異)",
+            "Crisis Management and Brand Reputation (危機管理與品牌聲譽)",
+            "The Psychology of Pricing Strategies (定價策略的心理學)",
+            "Supply Chain Resilience Strategies (供應鏈韌性策略)",
+            "The Creator Economy Business Models (創作者經濟商業模式)",
+            "Venture Capital and Startup Funding (創投與新創資金)",
+            "Behavioral Economics in Business (行為經濟學在商業的應用)",
+            "The Future of Real Estate and Office Spaces (房地產與辦公空間的未來)"
         ]
     };
 
@@ -177,14 +294,16 @@ document.addEventListener('DOMContentLoaded', () => {
         inputEl.classList.add('slot-spinning');
 
         return new Promise(resolve => {
-            let lastDisplayTopic = "";
+            let lastFewTopics = [];
             function tick() {
-                // Pick a random topic for the animation, ensuring it doesn't repeat the previous frame
+                // Pick a random topic for the animation, avoiding recent frames to look highly varied
                 let displayTopic = getRandomTopic(pool);
-                while (displayTopic === lastDisplayTopic && pool.length > 1) {
+                while (lastFewTopics.includes(displayTopic) && pool.length > 5) {
                     displayTopic = getRandomTopic(pool);
                 }
-                lastDisplayTopic = displayTopic;
+                lastFewTopics.push(displayTopic);
+                if (lastFewTopics.length > 5) lastFewTopics.shift();
+                
                 inputEl.value = displayTopic;
                 
                 iterations--;
