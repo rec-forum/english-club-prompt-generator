@@ -100,11 +100,24 @@ document.addEventListener('DOMContentLoaded', () => {
             ? Object.values(topicPools).flat() 
             : topicPools[category];
         
+        let jumps = 2;
+        inputEl.classList.add('slot-spinning');
+        
         return new Promise(resolve => {
-            // For the final result, pick a completely unique topic that hasn't been used recently
-            const finalTopic = getUniqueRandomTopic(pool);
-            inputEl.value = finalTopic;
-            resolve(finalTopic);
+            function tick() {
+                if (jumps > 0) {
+                    inputEl.value = getRandomTopic(pool);
+                    jumps--;
+                    setTimeout(tick, 150);
+                } else {
+                    inputEl.classList.remove('slot-spinning');
+                    // For the final result, pick a completely unique topic that hasn't been used recently
+                    const finalTopic = getUniqueRandomTopic(pool);
+                    inputEl.value = finalTopic;
+                    resolve(finalTopic);
+                }
+            }
+            tick();
         });
     }
 

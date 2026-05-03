@@ -1,12 +1,12 @@
 :root {
-    --primary-color: #6366f1;
-    --primary-hover: #4f46e5;
-    --bg-color: #f8fafc;
-    --text-main: #1e293b;
+    --primary-color: #0ea5e9;
+    --primary-hover: #0284c7;
+    --bg-color: #ffffff;
+    --text-main: #0f172a;
     --text-muted: #64748b;
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.5);
-    --glass-shadow: 0 8px 32px rgba(30, 41, 59, 0.08);
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --glass-border: rgba(14, 165, 233, 0.2);
+    --glass-shadow: 0 4px 24px rgba(14, 165, 233, 0.05);
 }
 
 * {
@@ -52,7 +52,7 @@ body {
     left: -10%;
     width: 50vw;
     height: 50vw;
-    background: linear-gradient(135deg, #a855f7, #6366f1);
+    background: radial-gradient(circle, rgba(14,165,233,0.1) 0%, rgba(255,255,255,0) 70%);
 }
 
 .shape-2 {
@@ -60,7 +60,7 @@ body {
     right: -10%;
     width: 60vw;
     height: 60vw;
-    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    background: radial-gradient(circle, rgba(56,189,248,0.08) 0%, rgba(255,255,255,0) 70%);
     animation-delay: -5s;
 }
 
@@ -69,7 +69,7 @@ body {
     left: 40%;
     width: 30vw;
     height: 30vw;
-    background: linear-gradient(135deg, #f43f5e, #f59e0b);
+    background: radial-gradient(circle, rgba(148,163,184,0.1) 0%, rgba(255,255,255,0) 70%);
     animation-delay: -10s;
 }
 
@@ -86,7 +86,7 @@ body {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
-    border-radius: 24px;
+    border-radius: 12px;
     padding: 3rem;
     box-shadow: var(--glass-shadow);
     transition: transform 0.3s ease;
@@ -100,9 +100,7 @@ header {
 header h1 {
     font-size: 2.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #4f46e5, #ec4899);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-main);
     margin-bottom: 0.5rem;
     letter-spacing: -0.02em;
 }
@@ -227,12 +225,12 @@ header p {
     padding: 1rem 1.5rem;
     font-size: 1.1rem;
     font-family: inherit;
-    border: 2px solid rgba(255,255,255,0.8);
-    border-radius: 16px;
-    background: rgba(255,255,255,0.6);
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #ffffff;
     color: var(--text-main);
     transition: all 0.3s ease;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.01);
 }
 
 .custom-textarea {
@@ -240,12 +238,12 @@ header p {
     padding: 1rem 1.5rem;
     font-size: 1.1rem;
     font-family: inherit;
-    border: 2px solid rgba(255,255,255,0.8);
-    border-radius: 16px;
-    background: rgba(255,255,255,0.6);
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #ffffff;
     color: var(--text-main);
     transition: all 0.3s ease;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.01);
     resize: vertical;
     min-height: 120px;
 }
@@ -253,15 +251,15 @@ header p {
 .custom-textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    background: rgba(255,255,255,0.9);
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
 }
 
 .input-group input:focus {
     outline: none;
     border-color: var(--primary-color);
-    background: rgba(255,255,255,0.9);
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
 }
 
 .random-topic-section {
@@ -272,9 +270,9 @@ header p {
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
     padding: 1rem 1.5rem;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
     flex-wrap: wrap;
 }
 
@@ -314,17 +312,17 @@ header p {
 }
 
 .suggestion-btn {
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.9);
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
     padding: 0.6rem 1.2rem;
-    border-radius: 20px;
+    border-radius: 6px;
     font-size: 0.95rem;
     color: var(--text-main);
     display: flex;
     align-items: center;
     gap: 0.5rem;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
 }
 
 .suggestion-btn:hover:not(:disabled) {
@@ -346,12 +344,13 @@ header p {
 }
 
 .slot-btn {
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    border-color: #fcd34d;
+    background: #f0f9ff;
+    border-color: #bae6fd;
+    color: #0369a1;
     font-weight: 600;
 }
 .slot-btn:hover:not(:disabled) {
-    background: linear-gradient(135deg, #fde68a, #fcd34d);
+    background: #e0f2fe;
 }
 
 /* Add a visual effect for slot machine */
@@ -382,15 +381,15 @@ button {
     font-size: 1.1rem;
     background: var(--primary-color);
     color: white;
-    border-radius: 16px;
+    border-radius: 8px;
     height: 58px;
-    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 4px 14px rgba(14, 165, 233, 0.2);
 }
 
 .primary-btn:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.3);
 }
 
 .primary-btn:active {
@@ -448,9 +447,9 @@ textarea {
     font-size: 1rem;
     line-height: 1.6;
     font-family: monospace;
-    border: 2px solid rgba(255,255,255,0.8);
-    border-radius: 16px;
-    background: rgba(255,255,255,0.7);
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #f8fafc;
     color: var(--text-main);
     resize: vertical;
     transition: all 0.3s ease;
@@ -464,10 +463,10 @@ textarea:focus {
 
 .instruction-box {
     margin-top: 1rem;
-    background: rgba(255,255,255,0.6);
+    background: #f8fafc;
     padding: 1.5rem;
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
 }
 
 .instruction-box p {
